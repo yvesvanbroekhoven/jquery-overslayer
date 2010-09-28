@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset=utf-8>
+  <title>Overslayer</title>
+  <style type="text/css" media="screen">
+    html, body { margin: 0; padding: 0; height: 100%; }
+    #overslayer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #CCC; }
+  </style>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script>
+    (function($){
+      
+      $.fn.overslayer = function(options){
+        
+        var opts = $.extend({}, $.fn.overslayer.defaults, options);
+        
+        return this.each(function(){
+          $this = $(this);
+          
+          $this.click(function(e){
+            $.fn.overslayer.open(opts);
+          });
+          
+        });
+        
+      };
+      
+      // Private
+      //function _function(arg){
+      //
+      //};
+      
+      // Public
+      $.fn.overslayer.defaults = {
+        background: 'black'
+      };
+      
+      $.fn.overslayer.open = function(opts){
+        opts = opts ? opts : $.fn.overslayer.defaults;
+        var overlay = $('<div id="overslayer"></div>');
+        overlay.css({ 'background': opts.background });
+        
+        if ($('#overslayer').length <= 0) {
+          overlay.appendTo('body').hide().fadeIn(300);
+          overlay.click(function(){
+            $.fn.overslayer.close();
+          });
+        }
+        
+      };
+      
+      $.fn.overslayer.close = function(){
+        $('#overslayer').fadeOut(300, function(){
+          $(this).remove();
+        });
+      };
+      
+    })(jQuery);
+    
+    // DOM Ready
+    $(function(){
+      $('a').overslayer({ 'background': 'white' });
+      
+      $('h1').click(function(){
+        $.fn.overslayer.open();
+      });
+    });
+    
+    
+  </script>
+</head>
+<body>
+  <h1>Overslayer</h1>
+  <h2>The badass overlayer</h2>
+  <a href="#">Please don't click me</a>
+</body>
+</html>
