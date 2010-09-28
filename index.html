@@ -37,7 +37,7 @@
       };
       
       $.fn.overslayer.open = function(opts){
-        opts = opts ? opts : $.fn.overslayer.defaults;
+        opts = opts ? $.extend({}, $.fn.overslayer.defaults, opts) : $.fn.overslayer.defaults;
         var overlay = $('<div id="overslayer"></div>');
         overlay.css({ 'background': opts.background });
         
@@ -63,7 +63,7 @@
       $('a').overslayer({ 'background': 'white' });
       
       $('h1').click(function(){
-        $.fn.overslayer.open();
+        $.fn.overslayer.open({ 'background': 'red' });
       });
     });
     
