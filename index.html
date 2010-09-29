@@ -4,75 +4,61 @@
   <meta charset=utf-8>
   <title>Overslayer</title>
   <style type="text/css" media="screen">
-    html, body { margin: 0; padding: 0; height: 100%; }
-    #overslayer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #CCC; }
+    html { margin: 0; height: 100%; background: #B3EFE8; font-family: Georgia, serif; color: #3F7F78; }
+    body { padding: 50px 0; }
+    a { color: #DF6F93; }
+    #container { margin: 0 auto; padding: 50px; width: 400px; background: #EFFFFF; }
   </style>
+  <link rel="stylesheet" href="overslayer.css"media="screen">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="jquery.overslayer.js"></script>
   <script>
-    (function($){
-      
-      $.fn.overslayer = function(options){
-        
-        var opts = $.extend({}, $.fn.overslayer.defaults, options);
-        
-        return this.each(function(){
-          $this = $(this);
-          
-          $this.click(function(e){
-            $.fn.overslayer.open(opts);
-          });
-          
-        });
-        
-      };
-      
-      // Private
-      //function _function(arg){
-      //
-      //};
-      
-      // Public
-      $.fn.overslayer.defaults = {
-        background: 'black'
-      };
-      
-      $.fn.overslayer.open = function(opts){
-        opts = opts ? $.extend({}, $.fn.overslayer.defaults, opts) : $.fn.overslayer.defaults;
-        var overlay = $('<div id="overslayer"></div>');
-        overlay.css({ 'background': opts.background });
-        
-        if ($('#overslayer').length <= 0) {
-          overlay.appendTo('body').hide().fadeIn(300);
-          overlay.click(function(){
-            $.fn.overslayer.close();
-          });
-        }
-        
-      };
-      
-      $.fn.overslayer.close = function(){
-        $('#overslayer').fadeOut(300, function(){
-          $(this).remove();
-        });
-      };
-      
-    })(jQuery);
     
     // DOM Ready
     $(function(){
-      $('a').overslayer({ 'background': 'white' });
+      $('a').overslayer({ 
+        beforeOpenAsync: function(callback){
+          console.log('before open async');
+          $('h1').fadeOut(1000, function(){
+            callback('Let\'s put some content in our overslayer!');
+          })
+        },
+        beforeCloseAsync: function(callback){
+          console.log('before close async');
+          $('h1').fadeIn(1000, function(){
+            callback();
+          })
+        },
+        afterOpen: function(){
+          console.log('after open');
+        },
+        afterClose: function(){
+          console.log('after close');
+        }
+      }
+      );
       
       $('h1').click(function(){
-        $.fn.overslayer.open({ 'background': 'red' });
+        $.fn.overslayer.open({
+          beforeOpenAsync: function(callback){
+            $('h1').fadeOut(1000, function(){
+              callback.call(this);
+              $(this).show();
+            })
+          }
+        });
       });
+
     });
     
     
   </script>
 </head>
 <body>
-  <h1>Overslayer</h1>
-  <h2>The badass overlayer</h2>
-  <a href="#">Please don't click me</a>
+  <div id="container">
+    <h1>Overslayer</h1>
+    <h2>The badass overlayer</h2>
+    <a href="#">Please don't click me</a>
+  </div>
 </body>
 </html>
