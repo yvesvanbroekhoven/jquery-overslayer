@@ -37,6 +37,7 @@
    * @options opts [Function] beforeCloseAsync (null) Function runs before the overlayer closes and triggers the close function when done
    * @options opts [Function] afterOpen (null) Function runs after the overlay opened
    * @options opts [Function] afterClose (null) Function runs after the overlay closed
+   * @options opts [Object] closeOnClick (true) Clicked this element(s) to close the overlayer
    */
   $.fn.overslayer.defaults = {
     beforeOpen: null,
@@ -44,7 +45,8 @@
     beforeClose: null,
     beforeCloseAsync: null,
     afterOpen: null,
-    afterClose: null
+    afterClose: null,
+    closeOnClick: $('#overslayer')
   };
   
   
@@ -125,7 +127,7 @@
     }
     
     // Attach close event
-    overlay.click(function(){
+    opts.closeOnClick.live('click', function(){
         $.fn.overslayer.close(opts);
     });
     

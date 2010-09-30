@@ -8,6 +8,7 @@
     body { padding: 50px 0; }
     a { color: #DF6F93; }
     #container { margin: 0 auto; padding: 50px; width: 400px; background: #EFFFFF; }
+    .close { cursor: pointer; }
   </style>
   <link rel="stylesheet" href="overslayer.css"media="screen">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
@@ -20,7 +21,7 @@
         beforeOpenAsync: function(callback){
           console.log('before open async');
           $('h1').fadeOut(1000, function(){
-            callback('Let\'s put some content in our overslayer!');
+            callback('Let\'s put some content in our overslayer!<strong class="close">Close</strong>');
           })
         },
         beforeCloseAsync: function(callback){
@@ -34,7 +35,8 @@
         },
         afterClose: function(){
           console.log('after close');
-        }
+        },
+        closeOnClick: $('.close')
       }
       );
       
