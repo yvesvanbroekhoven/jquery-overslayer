@@ -127,7 +127,8 @@
     }
     
     // Attach close event
-    opts.closeOnClick.live('click', function(){
+    opts.closeOnClick.live('click', function(event){
+        event.preventDefault();
         $.fn.overslayer.close(opts);
     });
     
