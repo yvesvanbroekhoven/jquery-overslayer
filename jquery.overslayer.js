@@ -44,6 +44,7 @@
     beforeOpenAsync: null,
     beforeClose: null,
     beforeCloseAsync: null,
+    onOpen: null,
     afterOpen: null,
     afterClose: null,
     closeOnClick: '#overslayer',
@@ -136,6 +137,13 @@
     // Open the bitch
     if ($('#overslayer').length <= 0) {
       overlay.appendTo('body').hide();
+      
+      // On open callback
+      if ($.isFunction(opts.afterOpen)) {
+        opts.onOpen();
+      }
+      
+      // Fade in
       overlay.fadeIn(opts.fadeSpeed, function(){
         // After open callback
         if ($.isFunction(opts.afterOpen)) {
