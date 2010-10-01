@@ -139,7 +139,7 @@
       overlay.appendTo('body').hide();
       
       // On open callback
-      if ($.isFunction(opts.afterOpen)) {
+      if ($.isFunction(opts.onOpen)) {
         opts.onOpen();
       }
       
