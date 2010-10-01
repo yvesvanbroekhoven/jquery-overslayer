@@ -46,7 +46,8 @@
     beforeCloseAsync: null,
     afterOpen: null,
     afterClose: null,
-    closeOnClick: $('#overslayer')
+    closeOnClick: '#overslayer',
+    fx: 'fade'
   };
   
   
@@ -62,6 +63,7 @@
     } else {
       opts = opts ? $.extend({}, $.fn.overslayer.defaults, opts) : $.fn.overslayer.defaults;
     }
+    
 
     // Before open
     if ($.isFunction(opts.beforeOpen)) {
@@ -125,23 +127,31 @@
     if (opts.content) {
       overlay.html(opts.content);
     }
-    
     // Attach close event
-    opts.closeOnClick.live('click', function(event){
-        event.preventDefault();
-        $.fn.overslayer.close(opts);
+    $(opts.closeOnClick).live('click', function(event){
+      event.preventDefault();
+      $.fn.overslayer.close(opts);
     });
     
     // Open the bitch
     if ($('#overslayer').length <= 0) {
-      overlay.appendTo('body').hide().fadeIn(300, function(){
+      overlay.appendTo('body').hide();
+      if (opts.fx) {
+        overlay.fadeIn(300, function(){
+          // After open callback
+          if ($.isFunction(opts.afterOpen)) {
+            opts.afterOpen();
+          }
         
+        });
+      } else {
+        overlay.show();
         // After open callback
         if ($.isFunction(opts.afterOpen)) {
           opts.afterOpen();
         }
         
-      });
+      }
     }
 
   };
