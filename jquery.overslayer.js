@@ -47,7 +47,7 @@
     afterOpen: null,
     afterClose: null,
     closeOnClick: '#overslayer',
-    fx: 'fade'
+    fadeSpeed: 300
   };
   
   
@@ -136,22 +136,13 @@
     // Open the bitch
     if ($('#overslayer').length <= 0) {
       overlay.appendTo('body').hide();
-      if (opts.fx) {
-        overlay.fadeIn(300, function(){
-          // After open callback
-          if ($.isFunction(opts.afterOpen)) {
-            opts.afterOpen();
-          }
-        
-        });
-      } else {
-        overlay.show();
+      overlay.show(opts.fadeSpeed, function(){
         // After open callback
         if ($.isFunction(opts.afterOpen)) {
           opts.afterOpen();
         }
-        
-      }
+      
+      });
     }
 
   };

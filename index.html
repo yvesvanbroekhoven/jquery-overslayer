@@ -18,7 +18,7 @@
     // DOM Ready
     $(function(){
       $('a').overslayer({
-        fx: false,
+        fadeSpeed: 0,
         beforeOpenAsync: function(callback){
           console.log('before open async');
           $('h1').fadeOut(1000, function(){
