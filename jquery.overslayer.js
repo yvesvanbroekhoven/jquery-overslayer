@@ -136,7 +136,7 @@
     // Open the bitch
     if ($('#overslayer').length <= 0) {
       overlay.appendTo('body').hide();
-      overlay.show(opts.fadeSpeed, function(){
+      overlay.fadeIn(opts.fadeSpeed, function(){
         // After open callback
         if ($.isFunction(opts.afterOpen)) {
           opts.afterOpen();
