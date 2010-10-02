@@ -126,7 +126,7 @@
     // Create overlayer
     var overlay = $('<div id="overslayer"></div>');
     if (opts.content) {
-      overlay.html(opts.content);
+      overlay.append(opts.content);
     }
     // Attach close event
     $(opts.closeOnClick).live('click', function(event){
