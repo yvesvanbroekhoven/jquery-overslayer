@@ -129,7 +129,7 @@
       overlay.append(opts.content);
     }
     // Attach close event
-    $(opts.closeOnClick).live('click', function(event){
+    $(opts.closeOnClick, overlay).bind('click', function(event){
       event.preventDefault();
       $.fn.overslayer.close(opts);
     });
